@@ -3,6 +3,14 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import { getPostBySlug, getPostById } from "@/lib/api";
 
+// Generate static params for all posts
+export async function generateStaticParams() {
+  const { mockPosts } = await import("@/lib/posts");
+  return mockPosts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   
